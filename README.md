@@ -1,4 +1,4 @@
-<p style='text-align: center'>
+<p align='center'>
   <img src="doc/typer-logo.png" width='120' height='120' style='border-radius: 15px'>
 </p>
 
