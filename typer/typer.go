@@ -20,7 +20,7 @@ var DefaultTyper Typer = Typer{
 	printer:    fmt.Print,
 }
 
-func (t Typer) print(message string) {
+func (t Typer) Print(message string) {
 	for _, c := range message {
 		delay := rand.Intn(t.floatRange) + t.base
 
@@ -34,14 +34,14 @@ func (t Typer) print(message string) {
 	}
 }
 
-func (t Typer) println(message string) {
-	t.print(fmt.Sprintf("%s\n", message))
+func (t Typer) Println(message string) {
+	t.Print(fmt.Sprintf("%s\n", message))
 }
 
 func Print(message string) {
-	DefaultTyper.print(message)
+	DefaultTyper.Print(message)
 }
 
 func Println(message string) {
-	DefaultTyper.println(message)
+	DefaultTyper.Println(message)
 }
