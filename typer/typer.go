@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	ErrFloatRangeInvalid = errors.New("floatRange should be bigger than 0")
+	ErrFloatRangeInvalid = errors.New("FloatRange should be bigger than 0")
 	ErrPrinterIsNull     = errors.New("Printer cannot be null")
 )
 
