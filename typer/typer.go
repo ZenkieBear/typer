@@ -1,9 +1,15 @@
 package typer
 
 import (
+	"errors"
 	"fmt"
 	"math/rand"
 	"time"
+)
+
+var (
+	ErrFloatRangeInvalid = errors.New("floatRange should be bigger than 0")
+	ErrPrinterIsNull     = errors.New("Printer cannot be null")
 )
 
 // As same as fmt.Print
@@ -32,22 +38,31 @@ func New(printer Printer, base, floatRange, gap int) *Typer {
 	}
 }
 
-func (t Typer) Print(message string) {
+func (t Typer) Print(message string) error {
+	if t.FloatRange <= 0 {
+		return ErrFloatRangeInvalid
+	}
+	if t.Printer == nil {
+		return ErrPrinterIsNull
+	}
 	for _, c := range message {
-		delay := rand.Intn(t.FloatRange) + t.Base
+		delay := t.Base + rand.Intn(t.FloatRange)
 
+		// Wait before output
 		time.Sleep(time.Duration(delay) * time.Millisecond)
 
 		t.Printer(string(c))
 
+		// Wait for the space characters
 		if string(c) == " " {
 			time.Sleep(200 * time.Millisecond)
 		}
 	}
+	return nil
 }
 
-func (t Typer) Println(message string) {
-	t.Print(fmt.Sprintf("%s\n", message))
+func (t Typer) Println(message string) error {
+	return t.Print(fmt.Sprintf("%s\n", message))
 }
 
 var DefaultTyper Typer = Typer{
